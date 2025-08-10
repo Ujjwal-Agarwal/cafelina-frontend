@@ -3,30 +3,34 @@ import Input from '@mui/joy/Input';
 import {Alert, Button, IconButton} from "@mui/joy";
 import ReportIcon from '@mui/icons-material/Report';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import Face2Icon from '@mui/icons-material/Face2';
+import KeyIcon from '@mui/icons-material/Key';
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../contexts/AuthContext.jsx";
 
-function Login(){
-    const [input, setInput] = useState({username: "", password: ""});
+const Login = () => {
+    const [credentials, setCredentials] = useState({username: "", password: ""});
     const [error,setError] = useState("");
-    const [success,setSuccess] = useState("");
+    // const [success,setSuccess] = useState("");
+    const [loading,setLoading] = useState(false);
+    const {login} = useAuth();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setInput({...input, [e.target.name]: e.target.value});
+        setCredentials({...credentials, [e.target.name]: e.target.value});
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError("");
         try{
-            const res = await fetch("http://localhost:8080/api/auth/signin", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(input),
-            });
-            const data = await res.json();
-            if(res.ok){
-                localStorage.setItem("accessToken",data.accessToken);
-                setSuccess("Login successfull!");
-            }else setError(data.message || "Login failed");
+            await login(credentials);
+            navigate('/dashboard');
         }catch(err){
-            setError("Login Failed");
+            // console.log(err.message);
+            setError("Login Failed" + err.message);
+        } finally{
+            setLoading(false);
         }
     };
 
@@ -42,12 +46,13 @@ function Login(){
                         <p className='my-1 text-sm text-slate-400'>Not a Member? <a className='text-blue-500 no-underline' href='/signup'>Sign Up</a></p>
                     </div>
                     <Input
+                        startDecorator={<Face2Icon />}
                         color="neutral"
                         placeholder="Username"
-                        size="md"
+                        size="lg"
                         variant="soft"
                         name="username"
-                        value={input.username}
+                        value={credentials.username}
                         onChange={handleChange}
                         required
                         fullWidth
@@ -56,13 +61,14 @@ function Login(){
                         })}
                     />
                     <Input
+                        startDecorator={<KeyIcon />}
                         color="neutral"
                         type = 'password'
                         placeholder="Password"
-                        size="md"
+                        size="lg"
                         variant="soft"
                         name="password"
-                        value={input.password}
+                        value={credentials.password}
                         onChange={handleChange}
                         required
                         fullWidth
@@ -79,13 +85,13 @@ function Login(){
                     {/*<input type="email" name = "email" value={input.email} onChange={handleChange} placeholder="Email" />*/}
                     {/*<input type="password" name = "password" value={input.password} onChange={handleChange} placeholder="Password" />*/}
                     {/*<button type="submit">Login</button>*/}
-                    {success && <Alert
-                        startDecorator={<ReportIcon />}
-                        color={"primary"}
-                        size={"md"}
-                        variant={"plain"}
-                        sx = {{alignItems: "flex-start"}}
-                    >{success}</Alert>}
+                    {/*{success && <Alert*/}
+                    {/*    startDecorator={<ReportIcon />}*/}
+                    {/*    color={"primary"}*/}
+                    {/*    size={"md"}*/}
+                    {/*    variant={"plain"}*/}
+                    {/*    sx = {{alignItems: "flex-start"}}*/}
+                    {/*>{success}</Alert>}*/}
                     {error && <Alert
                         startDecorator={<ReportIcon />}
                         color={"danger"}
@@ -94,9 +100,7 @@ function Login(){
                         sx = {{alignItems: "flex-start"}}
                     >{error}</Alert>}
                 </form>
-
             </div>
-
         </div>
     );
 }

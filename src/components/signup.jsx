@@ -2,6 +2,10 @@ import React,{useState} from "react";
 import Input from '@mui/joy/Input';
 import {Alert, Button, IconButton, LinearProgress, Stack, Typography} from "@mui/joy";
 import ReportIcon from '@mui/icons-material/Report';
+import MailIcon from '@mui/icons-material/Mail';
+import Face2Icon from '@mui/icons-material/Face2';
+import KeyIcon from '@mui/icons-material/Key';
+import {Face2} from "@mui/icons-material";
 
 function Signup(){
     const [input, setInput] = useState({username: "", password: "",email: ""});
@@ -24,10 +28,14 @@ function Signup(){
             const data = await res.json();
             if(res.ok){
                 // localStorage.setItem("token",data.token);
-                setSuccess(data.message);
-            }else setError(data.message || "Signup failed");
+                setSuccess("Sign up successfull!");
+                setError(null);
+            }else{
+                setError(data.message || "Signup failed");
+                setSuccess(null);
+            }
         }catch(err){
-            setError("Network Error");
+            setError("Sign Up Failed!" + err.message);
         }
     };
 
@@ -41,12 +49,13 @@ function Signup(){
                     <div className={"my-2"}>
                         {/*Can have an image here*/}
                         <h1 className={"text-2xl font-bold"}>Signup to Cafelina</h1>
-                        <p className='my-1 text-sm text-slate-400'>Already a Member? <a className='text-blue-500 no-underline' href='/login'>Log In</a></p>
+                        <p className='my-1 text-sm text-slate-400'>Already a Member? <a className='text-blue-500 no-underline' href='/src/components/Login'>Log In</a></p>
                     </div>
                     <Input
+                        startDecorator={<MailIcon />}
                         color="neutral"
                         placeholder="example@email.com"
-                        size="md"
+                        size="lg"
                         variant="soft"
                         name="email"
                         value={input.email}
@@ -59,9 +68,10 @@ function Signup(){
                         })}
                     />
                     <Input
+                        startDecorator={<Face2Icon />}
                         color="neutral"
                         placeholder="Username"
-                        size="md"
+                        size="lg"
                         variant="soft"
                         name="username"
                         value={input.username}
@@ -74,10 +84,11 @@ function Signup(){
                     />
                     <Stack spacing = {0.5} sx = {{'--hue':Math.min(input.password.length*10,120)}}>
                         <Input
+                            startDecorator={<KeyIcon />}
                             color="neutral"
                             type = 'password'
                             placeholder="Password"
-                            size="md"
+                            size="lg"
                             variant="soft"
                             name="password"
                             value={input.password}
