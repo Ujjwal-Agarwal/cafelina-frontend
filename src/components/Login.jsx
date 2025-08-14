@@ -2,11 +2,11 @@ import React,{useState} from "react";
 import Input from '@mui/joy/Input';
 import {Alert, Button, IconButton} from "@mui/joy";
 import ReportIcon from '@mui/icons-material/Report';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Face2Icon from '@mui/icons-material/Face2';
 import KeyIcon from '@mui/icons-material/Key';
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext.jsx";
+import OAuth2LoginGoogle from "./userFlow/OAuth2LoginGoogle.jsx";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({username: "", password: ""});
@@ -81,17 +81,9 @@ const Login = () => {
                         color="success"
                         size="lg"
                         variant="soft"
+                        loading={loading}
                     >Submit</Button>
-                    {/*<input type="email" name = "email" value={input.email} onChange={handleChange} placeholder="Email" />*/}
-                    {/*<input type="password" name = "password" value={input.password} onChange={handleChange} placeholder="Password" />*/}
-                    {/*<button type="submit">Login</button>*/}
-                    {/*{success && <Alert*/}
-                    {/*    startDecorator={<ReportIcon />}*/}
-                    {/*    color={"primary"}*/}
-                    {/*    size={"md"}*/}
-                    {/*    variant={"plain"}*/}
-                    {/*    sx = {{alignItems: "flex-start"}}*/}
-                    {/*>{success}</Alert>}*/}
+                    <OAuth2LoginGoogle />
                     {error && <Alert
                         startDecorator={<ReportIcon />}
                         color={"danger"}
