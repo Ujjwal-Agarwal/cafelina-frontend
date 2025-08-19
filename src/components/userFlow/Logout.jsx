@@ -2,7 +2,7 @@ import {Button} from "@mui/joy";
 import React, {useState} from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../contexts/AuthContext.jsx";
+import {useAuth} from "../../contexts/AuthContext.jsx";
 
 const Logout = () =>{
     const [error,setError] = useState("");

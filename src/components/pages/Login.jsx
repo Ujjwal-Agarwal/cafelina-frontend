@@ -5,8 +5,8 @@ import ReportIcon from '@mui/icons-material/Report';
 import Face2Icon from '@mui/icons-material/Face2';
 import KeyIcon from '@mui/icons-material/Key';
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../contexts/AuthContext.jsx";
-import OAuth2LoginGoogle from "./userFlow/OAuth2LoginGoogle.jsx";
+import {useAuth} from "../../contexts/AuthContext.jsx";
+import OAuth2LoginGoogle from "../userFlow/OAuth2LoginGoogle.jsx";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({username: "", password: ""});
@@ -43,7 +43,7 @@ const Login = () => {
                     <div className={"my-2"}>
                         {/*Can have an image here*/}
                         <h1 className={"text-2xl font-bold"}>Login to Cafelina</h1>
-                        <p className='my-1 text-sm text-slate-400'>Not a Member? <a className='text-blue-500 no-underline' href='/signup'>Sign Up</a></p>
+                        <p className='my-1 text-sm text-slate-400'>Not a Member? <a className='text-blue-500 no-underline' href='/src/components/pages/Signup'>Sign Up</a></p>
                     </div>
                     <Input
                         startDecorator={<Face2Icon />}

@@ -15,7 +15,7 @@ authClientAxiosConfig.interceptors.response.use(
     (response) => response,
     (err) =>{
         if(err.response?.status === 401){
-            if(window.location.pathname !== '/login' && window.location.pathname !== '/signup'){
+            if(window.location.pathname !== '/login' && window.location.pathname !== '/signup' && window.location.pathname !== '/verify-email'){
                 window.location.href = '/login';
             }
         }

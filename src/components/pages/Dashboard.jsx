@@ -1,4 +1,4 @@
-import Logout from "./Logout";
+import Logout from "../userFlow/Logout.jsx";
 
 const Dashboard = () =>{
     return (

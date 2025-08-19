@@ -49,7 +49,7 @@ function Signup(){
                     <div className={"my-2"}>
                         {/*Can have an image here*/}
                         <h1 className={"text-2xl font-bold"}>Signup to Cafelina</h1>
-                        <p className='my-1 text-sm text-slate-400'>Already a Member? <a className='text-blue-500 no-underline' href='/src/components/Login'>Log In</a></p>
+                        <p className='my-1 text-sm text-slate-400'>Already a Member? <a className='text-blue-500 no-underline' href='/src/components/pages/Login'>Log In</a></p>
                     </div>
                     <Input
                         startDecorator={<MailIcon />}
